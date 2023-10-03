@@ -1,4 +1,4 @@
-package com.iestoque.api.controllers;
+package com.iestoque.api.controllers.userControllers;
 
 import com.iestoque.api.domain.user.AutenticationData;
 import com.iestoque.api.domain.user.User;
@@ -42,10 +42,6 @@ public class UserAuthenticationController {
 
     @Transactional
     @PostMapping("/register")
-//    public User cadastrar(@RequestBody User data){
-//    return repository.save(data);
-//    }
-
     public ResponseEntity register(@RequestBody UserRegisterDTO data){
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 

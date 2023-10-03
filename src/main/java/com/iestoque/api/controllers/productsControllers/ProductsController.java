@@ -1,4 +1,4 @@
-package com.iestoque.api.controllers;
+package com.iestoque.api.controllers.productsControllers;
 
 
 import com.iestoque.api.domain.product.ProductGetDTO;

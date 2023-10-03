@@ -31,7 +31,7 @@ public class ProductsJPA {
     @JsonIgnore
     private User user;
 
-    public ProductsJPA(ProductsDTO product) {
+    public ProductsJPA(ProductsRegisterDTO product) {
         this.productname = product.productname();
         this.brand = product.brand();
         this.location = product.location();
