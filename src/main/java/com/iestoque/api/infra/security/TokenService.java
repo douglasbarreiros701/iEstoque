@@ -1,4 +1,4 @@
-package com.iestoque.api.infra;
+package com.iestoque.api.infra.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -17,32 +17,32 @@ public class TokenService {
 
     @Value("${api.security.token.secret}")
     private String secret;
+
     public String generateToken(User user) {
-        System.out.println(secret);
         try {
-           var algorithm = Algorithm.HMAC256(secret);
-            return JWT.create()
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            String token = JWT.create()
                     .withIssuer("API iEstoque")
                     .withSubject(user.getLogin())
-                    //.withClaim("id", user.getId())
                     .withExpiresAt(dataExpiracao())
                     .sign(algorithm);
+            return token;
         } catch (JWTCreationException exception){
             throw new RuntimeException("erro ao gerar tojen jwt", exception);
-            // Invalid Signing configuration / Couldn't convert Claims.
         }
     }
 
-    public String getSubjetct(String tokenJWT) {
+    public String getSubject(String tokenJWT) {
         try {
-            var algoritmo = Algorithm.HMAC256(secret);
-            return JWT.require(algoritmo)
-                    .withIssuer("API iestoque")
+            var algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm)
+                    .withIssuer("API iEstoque")
                     .build()
                     .verify(tokenJWT)
                     .getSubject();
-        } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Token JWT inválido ou expirado!");
+
+        } catch (JWTVerificationException exception){
+            throw new RuntimeException("Token JWT inválido ou expierado!");
         }
     }
 
