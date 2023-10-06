@@ -1,6 +1,6 @@
 
 
-CREATE TABLE config (
+CREATE TABLE IF NOT EXISTS config (
 id INT NOT NULL AUTO_INCREMENT,
 dark_mode TINYINT NULL,
 notification_email TINYINT NULL,
@@ -9,7 +9,7 @@ notification_news TINYINT NULL,
 PRIMARY KEY (id)
 );
 
-CREATE TABLE address (
+CREATE TABLE IF NOT EXISTS address (
     id INT NOT NULL AUTO_INCREMENT,
     streetName VARCHAR(30) NULL,
     addressnumber INT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE address (
     PRIMARY KEY (id)
     );
 
-CREATE TABLE myuser (
+CREATE TABLE IF NOT EXISTS myuser (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NULL,
     password VARCHAR(30) NULL,
@@ -44,7 +44,7 @@ CREATE TABLE myuser (
 
 
 
-CREATE TABLE products (
+CREATE TABLE IF NOT EXISTS products (
     id INT NOT NULL AUTO_INCREMENT,
     productname VARCHAR(45) NULL,
     brand VARCHAR(20) NULL,
