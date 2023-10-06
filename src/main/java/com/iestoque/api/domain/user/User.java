@@ -32,11 +32,16 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<ProductsJPA> products = new ArrayList<>();
 
-    public User(String login, String password, String email, List<ProductsJPA> products) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.products = products;
+    }
+
+    public User(UserRegisterDTO data) {
+        this.login = data.login();
+        this.password = data.password();
+        this.email = data.email();
     }
 
     @Override

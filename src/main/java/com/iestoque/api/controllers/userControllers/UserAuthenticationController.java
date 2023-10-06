@@ -6,6 +6,8 @@ import com.iestoque.api.domain.user.UserRegisterDTO;
 import com.iestoque.api.domain.user.UserRepository;
 import com.iestoque.api.infra.security.DadosTokenJWT;
 import com.iestoque.api.infra.security.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +48,7 @@ public class UserAuthenticationController {
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.email(), data.products());
+        User newUser = new User(data.login(), encryptedPassword, data.email() );
 
         this.repository.save(newUser);
 

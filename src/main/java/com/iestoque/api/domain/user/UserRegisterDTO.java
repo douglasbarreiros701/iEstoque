@@ -14,7 +14,6 @@ public record UserRegisterDTO(
         String password,
         @NotBlank
         @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$\n")
-        String email,
-        List<ProductsJPA> products
+        String email
 ) {
 }

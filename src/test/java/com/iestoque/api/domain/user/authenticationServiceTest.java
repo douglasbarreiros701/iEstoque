@@ -35,7 +35,7 @@ public class authenticationServiceTest {
 
     @BeforeEach
     public void setUp(){
-       user = new User("Fabio", "123456", "teste@email.com", products);
+       user = new User("Fabio", "123456", "teste@email.com");
     }
 
 
@@ -45,8 +45,7 @@ public class authenticationServiceTest {
         UserRegisterDTO userDTO = new UserRegisterDTO(
                 user.getLogin(),
                 user.getPassword(),
-                user.getEmail(),
-                user.getProducts()
+                user.getEmail()
         );
 
 

@@ -1,7 +1,6 @@
-CREATE SCHEMA IF NOT EXISTS iestoquetest DEFAULT CHARACTER SET utf8;
-USE iestoquetest;
 
-CREATE TABLE IF NOT EXISTS config (
+
+CREATE TABLE config (
 id INT NOT NULL AUTO_INCREMENT,
 dark_mode TINYINT NULL,
 notification_email TINYINT NULL,
@@ -10,7 +9,7 @@ notification_news TINYINT NULL,
 PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS address (
+CREATE TABLE address (
     id INT NOT NULL AUTO_INCREMENT,
     streetName VARCHAR(30) NULL,
     addressnumber INT NULL,
@@ -20,7 +19,7 @@ CREATE TABLE IF NOT EXISTS address (
     PRIMARY KEY (id)
     );
 
-CREATE TABLE IF NOT EXISTS myuser (
+CREATE TABLE myuser (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NULL,
     password VARCHAR(30) NULL,
@@ -45,7 +44,7 @@ CREATE TABLE IF NOT EXISTS myuser (
 
 
 
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
     id INT NOT NULL AUTO_INCREMENT,
     productname VARCHAR(45) NULL,
     brand VARCHAR(20) NULL,

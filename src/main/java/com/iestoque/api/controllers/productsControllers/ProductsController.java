@@ -6,6 +6,7 @@ import com.iestoque.api.domain.product.ProductsRepository;
 import com.iestoque.api.domain.product.ProductsJPA;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/products")
+@SecurityRequirement(name = "bearer-key")
 public class ProductsController {
 
     @Autowired
