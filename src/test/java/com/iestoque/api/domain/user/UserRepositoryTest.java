@@ -25,7 +25,7 @@ class UserRepositoryTest {
     private User user;
 
     @Test
-    @DisplayName("Must return  'returns false when the user is not saved correctly' ")
+    @DisplayName("Returns false when the user is not saved correctly")
     void SaveUserScenario1() {
 
         user = registerUser("Teste", "12345678", "testerepository@teste.com");
@@ -35,7 +35,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("Must return  'the user is null when the fields are not filled in' ")
+    @DisplayName("The user is null when the fields are not filled in")
     void SaveUserScenario2() {
 
         user = registerUser(null, null, null);

@@ -64,11 +64,11 @@ public class ProductControllerTest {
     @DisplayName("Must return http 200 when infos are valids")
     @WithMockUser
     void registerProductScenario2() throws Exception {
-
         var idLong = 6L;
         var id = 6;
 
-        User simulatedUser = new User("6", "Douglas701", "teste@teste.com");
+        User simulatedUser = new User("Douglas701", "12345678", "teste@teste.com");
+        simulatedUser.setId(idLong);
         when(userRepository.findById(idLong)).thenReturn(Optional.of(simulatedUser));
 
         ProductsRegisterDTO productDTO = new ProductsRegisterDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
@@ -94,6 +94,8 @@ public class ProductControllerTest {
 
         var expectedProduct = new ProductGetDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
         var actualProduct = objectMapper.readValue(response.getContentAsString(), ProductGetDTO.class);
+        System.out.println(actualProduct);
+        System.out.println(expectedProduct);
 
         assertThat(actualProduct).isEqualToIgnoringGivenFields(expectedProduct, "id");
     }
