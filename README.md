@@ -23,7 +23,6 @@ I noticed that many companies still use pen and paper to record information such
 
 # Installation 
 1. Clone the repository
-<br>
 <div style="background-color: #161B22; padding: 15px; border-radius: 10px">
 https://github.com/douglasbarreiros701/iEstoque.git
 </div>
