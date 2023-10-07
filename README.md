@@ -105,13 +105,9 @@ Thank you for your interest in contributing to our project. If you want to be pa
 
 # General Guidelines
 * Be respectful and courteous to other contributors.
-<br>
 * Follow the project's coding and style standards.
-<br>
 * Avoid making massive, unrelated changes.
-<br>
 * Communicate clearly and effectively in your commit messages and Pull Requests.
-<br>
 * If you're working on a significant new feature, open an issue for discussion before starting to write code.
 
 Thanks in advance for your contributions to making **iEstoque** better and more useful for everyone!
