@@ -23,9 +23,9 @@ I noticed that many companies still use pen and paper to record information such
 
 # Installation 
 1. Clone the repository
-<div style="background-color: #161B22; padding: 15px; border-radius: 10px">
+ ```bash
 https://github.com/douglasbarreiros701/iEstoque.git
-</div>
+ ```
 
 
 2. Install the dependencies with Maven<br>
@@ -40,7 +40,7 @@ https://github.com/douglasbarreiros701/iEstoque.git
 
 # Endpoints
 The api has the following endpoints
-<div style="background-color: #161B22; padding: 15px; border-radius: 10px">
+```bash
 
 GET /products -> Returns all products from the database
 
@@ -53,7 +53,7 @@ POST /auth/login -> Login to a user
 <br>
 POST /auth/register - Register a new user into the App
 
-</div>
+```
 
 # Authentication
 no rules yet
@@ -79,25 +79,25 @@ Thank you for your interest in contributing to our project. If you want to be pa
 
 1. **Create a Branch**: Create a new branch to work on the topic you've
 
-<div style="background-color: #161B22; padding: 15px; border-radius: 10px">
+```bash
    git checkout -b your-new-branch
-    </div>
-    <br>
+   ```
+    
 
 2. **Make Your Changes**: Make the necessary changes to the code, documentation, or resources
 
 3. **Test Your Changes**: Ensure that your changes work as expected and add tests if applicable.
 
 4. **Commit Your Changes:**: Commit your changes with clear commit messages.
-<div style="background-color: #161B22; padding: 15px; border-radius: 10px">
+```bash
    git clone https://github.com/your-username/repository-name.git
-   </div>
+   ```
    <br>
 
 5. **Push Your Changes**: Push your changes to the forked repository:
-<div style="background-color: #161B22; padding: 15px; border-radius: 10px">
+```bash
    git push origin your-new-branch
-   </div>
+   ```
    <br>
 
 6. **Open a Pull Request**: Go to the original repository's page on GitHub and click "New Pull Request." Describe your changes and explain why they are necessary.
