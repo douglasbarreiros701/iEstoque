@@ -1,6 +1,6 @@
 package com.iestoque.api.domain.configurations;
 
-public record ConfigurationDTO(
+public record ConfigurationUpdateDTO(
         Long id,
         Boolean dark_mode,
         Boolean notification_email,

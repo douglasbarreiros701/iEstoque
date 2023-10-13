@@ -1,6 +1,7 @@
 package com.iestoque.api.domain.configurations;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iestoque.api.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,9 @@ public class Configurations {
     private Boolean notification_browser;
     private Boolean notification_news;
 
+    @OneToOne
+    @JoinColumn(name = "configuracoes_id")
+    private User user;
 
     public Configurations(ConfigurationDTO data) {
         this.dark_mode = data.dark_mode();
@@ -30,4 +34,7 @@ public class Configurations {
         this.notification_browser = data.notification_browser();
         this.notification_news = data.notification_news();
     }
+
+
 }
+

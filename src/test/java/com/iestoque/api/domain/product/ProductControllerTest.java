@@ -1,6 +1,7 @@
 package com.iestoque.api.domain.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iestoque.api.domain.configurations.Configurations;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -106,7 +107,8 @@ public class ProductControllerTest {
     }
 
     private User simulatedUserDetails(){
-        return new User("Douglas701", "12345678", "teste@teste.com");
+        Configurations configurations = new Configurations();
+        return new User("Douglas701", "12345678", "teste@teste.com", configurations);
     }
 
 

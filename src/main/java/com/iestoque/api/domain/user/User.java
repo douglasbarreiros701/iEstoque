@@ -6,6 +6,7 @@ import com.iestoque.api.domain.configurations.Configurations;
 import com.iestoque.api.domain.product.ProductsJPA;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
@@ -34,7 +36,6 @@ public class User implements UserDetails {
     private List<ProductsJPA> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
-    @JoinColumn(name = "configuracoes_id")
     private Configurations configurations;
 
     public User(String login, String password, String email, Configurations configurations) {
