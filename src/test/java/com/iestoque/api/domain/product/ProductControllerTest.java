@@ -1,13 +1,13 @@
 package com.iestoque.api.domain.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iestoque.api.domain.configurations.Configurations;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -16,9 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +52,7 @@ public class ProductControllerTest {
     @DisplayName("Must return http 400 when infos are invalids")
     @WithMockUser
     void registerProduct() throws Exception {
-        var response = mvc.perform(post("/products/id"))
+        var response = mvc.perform(post("/products/userName"))
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
@@ -63,40 +62,55 @@ public class ProductControllerTest {
     @Test
     @DisplayName("Must return http 200 when infos are valids")
     @WithMockUser
+    @Transactional
     void registerProductScenario2() throws Exception {
         var idLong = 6L;
-        var id = 6;
+        var username = "Douglas701";
 
-        User simulatedUser = new User("Douglas701", "12345678", "teste@teste.com");
-        simulatedUser.setId(idLong);
+        User simulatedUser = simulatedUserDetails();
+        simulatedUser.setUsername(username);
         when(userRepository.findById(idLong)).thenReturn(Optional.of(simulatedUser));
 
-        ProductsRegisterDTO productDTO = new ProductsRegisterDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
-
+        ProductsRegisterDTO productDTO = productRegisterDTO();
         ProductsJPA productJPA = new ProductsJPA(productDTO);
-
         productJPA.setUser(simulatedUser);
-
         when(productsInterface.save(any(ProductsJPA.class))).thenReturn(productJPA);
+
 
 
         var response = mvc
                 .perform(
-                        post("/products/" + id)
+                        post("/products/" + username)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(productsRegisterDTOJson.write(
-                                        new ProductsRegisterDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD")
+                                        productRegisterDTO()
                                 ).getJson())
                 )
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 
-        var expectedProduct = new ProductGetDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
+        var expectedProduct = productGetDTO();
         var actualProduct = objectMapper.readValue(response.getContentAsString(), ProductGetDTO.class);
         System.out.println(actualProduct);
         System.out.println(expectedProduct);
 
         assertThat(actualProduct).isEqualToIgnoringGivenFields(expectedProduct, "id");
     }
+
+    private ProductsRegisterDTO productRegisterDTO() {
+        return new ProductsRegisterDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
+    }
+
+    private ProductGetDTO productGetDTO() {
+        return new ProductGetDTO("Feijao", "Padin", "C2", "AXD559GTR", "2023-10-09", "2022-10-09", "FOOD");
+    }
+
+    private User simulatedUserDetails(){
+        Configurations configurations = new Configurations();
+        return new User("Douglas701", "12345678", "teste@teste.com", configurations);
+    }
+
+
+    private static final String SAMPLE_PRODUCT_DETAILS = "\"Feijao\", \"Padin\", \"C2\", \"AXD559GTR\", \"2023-10-09\", \"2022-10-09\", \"FOOD\"";
 }

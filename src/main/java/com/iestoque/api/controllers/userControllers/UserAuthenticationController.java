@@ -1,13 +1,12 @@
 package com.iestoque.api.controllers.userControllers;
 
-import com.iestoque.api.domain.user.AutenticationData;
+import com.iestoque.api.domain.configurations.Configurations;
+import com.iestoque.api.domain.user.UserAuthentication.AutenticationData;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRegisterDTO;
 import com.iestoque.api.domain.user.UserRepository;
 import com.iestoque.api.infra.security.DadosTokenJWT;
 import com.iestoque.api.infra.security.TokenService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.ObjectInputFilter;
 
 @RestController
 @RequestMapping("/auth")
@@ -45,13 +46,28 @@ public class UserAuthenticationController {
     @Transactional
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserRegisterDTO data){
+
+        Configurations configurations = startConfigurations();
+
+
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.email() );
+        User newUser = new User(data.login(), encryptedPassword, data.email(), configurations);
 
         this.repository.save(newUser);
 
         return ResponseEntity.ok().build();
+    }
+
+
+    private Configurations startConfigurations(){
+        Configurations configurations = new Configurations();
+        configurations.setDark_mode(false);
+        configurations.setNotification_email(true);
+        configurations.setNotification_browser(true);
+        configurations.setNotification_news(true);
+
+        return configurations;
     }
 }

@@ -2,9 +2,11 @@ package com.iestoque.api.domain.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.iestoque.api.domain.configurations.Configurations;
 import com.iestoque.api.domain.product.ProductsJPA;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,7 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
@@ -32,16 +35,21 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<ProductsJPA> products = new ArrayList<>();
 
-    public User(String login, String password, String email) {
+    @OneToOne(mappedBy = "user")
+    private Configurations configurations;
+
+    public User(String login, String password, String email, Configurations configurations) {
         this.login = login;
         this.password = password;
         this.email = email;
+        this.configurations = new Configurations();
     }
 
     public User(UserRegisterDTO data) {
         this.login = data.login();
         this.password = data.password();
         this.email = data.email();
+
     }
 
     public void setId(Long id) {
@@ -53,9 +61,15 @@ public class User implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+
+
     @Override
     public String getUsername() {
         return login;
+    }
+
+    public void setUsername(String login) {
+        this.login = login;
     }
 
     @Override
