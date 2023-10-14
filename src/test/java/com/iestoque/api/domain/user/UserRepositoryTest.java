@@ -1,8 +1,7 @@
 package com.iestoque.api.domain.user;
 
 
-import com.iestoque.api.controllers.userControllers.UserAuthenticationController;
-import com.iestoque.api.domain.configurations.Configurations;
+import com.iestoque.api.domain.settings.Settings;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +27,13 @@ class UserRepositoryTest {
     @Test
     @DisplayName("Returns false when the user is not saved correctly")
     void SaveUserScenario1() {
-        Configurations configurations = new Configurations();
-        configurations.setDark_mode(false);
-        configurations.setNotification_email(true);
-        configurations.setNotification_browser(true);
-        configurations.setNotification_news(true);
+        Settings settings = new Settings();
+        settings.setDark_mode(false);
+        settings.setNotification_email(true);
+        settings.setNotification_browser(true);
+        settings.setNotification_news(true);
 
-        user = registerUser("Teste", "12345678", "testerepository@teste.com", configurations);
+        user = registerUser("Teste", "12345678", "testerepository@teste.com", settings);
         var savedCorrectly = isUserSavedCorrectly(user,"Teste","testerepository@teste.com" ,"12345678");
 
         assertTrue(savedCorrectly, "The user was not saved");
@@ -54,8 +53,8 @@ class UserRepositoryTest {
 
 
 
-    private User registerUser(String login, String password, String email, Configurations configurations) {
-        var user = new User(dadosUsuario(login, password, email, configurations));
+    private User registerUser(String login, String password, String email, Settings settings) {
+        var user = new User(dadosUsuario(login, password, email, settings));
         entityManager.persist(user);
         entityManager.flush();
         return user;
@@ -85,9 +84,9 @@ class UserRepositoryTest {
 
     }
 
-    private UserRegisterDTO dadosUsuario(String login, String password, String email, Configurations configurations) {
+    private UserRegisterDTO dadosUsuario(String login, String password, String email, Settings settings) {
         return new UserRegisterDTO(
-               login, password, email, configurations
+                login, password, email, settings
 
         );
 
