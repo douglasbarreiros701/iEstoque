@@ -7,7 +7,6 @@ import com.iestoque.api.domain.product.ProductsJPA;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -40,7 +39,7 @@ public class ProductsController {
 
         User user = userRepository.findByLogin(userName);
 
-       product.setUser(user);
+        product.setUser(user);
         return productsInterface.save(product);
     }
 

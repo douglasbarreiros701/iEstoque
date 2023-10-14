@@ -86,7 +86,7 @@ class UserRepositoryTest {
 
     private UserRegisterDTO dadosUsuario(String login, String password, String email, Settings settings) {
         return new UserRegisterDTO(
-               login, password, email, settings
+                login, password, email, settings
 
         );
 

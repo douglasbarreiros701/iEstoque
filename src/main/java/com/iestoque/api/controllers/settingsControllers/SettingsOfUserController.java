@@ -53,23 +53,23 @@ public class SettingsOfUserController {
 
     @GetMapping("/{userName}")
     public List<SettingsGetDTO> listSettings(@PathVariable String userName, Authentication authentication){
-    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-    String authenticatedUser = userDetails.getUsername();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String authenticatedUser = userDetails.getUsername();
 
-    if (!authenticatedUser.equals(userName)){
-        throw new AccessDeniedException("You don't have acess at this configurations");
-    }
+        if (!authenticatedUser.equals(userName)){
+            throw new AccessDeniedException("You don't have acess at this configurations");
+        }
 
-    User user = userRepository.findByLogin(userName);
+        User user = userRepository.findByLogin(userName);
 
-    List<Settings> userSettings = settingsRepository.findSettingsByUser(user);
+        List<Settings> userSettings = settingsRepository.findSettingsByUser(user);
 
-    List<SettingsGetDTO> userSettingsGetResponse = userSettings.stream().map(
-            setting -> new SettingsGetDTO(
-                    setting.getDark_mode(), setting.getNotification_email(), setting.getNotification_browser(), setting.getNotification_news())
-    ).toList();
+        List<SettingsGetDTO> userSettingsGetResponse = userSettings.stream().map(
+                setting -> new SettingsGetDTO(
+                        setting.getDark_mode(), setting.getNotification_email(), setting.getNotification_browser(), setting.getNotification_news())
+        ).toList();
 
-    return userSettingsGetResponse;
+        return userSettingsGetResponse;
 
     }
 
