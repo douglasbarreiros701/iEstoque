@@ -1,20 +1,17 @@
-package com.iestoque.api.domain.configurations;
+package com.iestoque.api.domain.settings;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.iestoque.api.domain.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.lang.module.Configuration;
-
-@Entity(name = "configurations")
-@Table(name = "config")
+@Entity(name = "Settings")
+@Table(name = "user_settings")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-public class Configurations {
+public class Settings {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +22,11 @@ public class Configurations {
     private Boolean notification_news;
 
     @OneToOne
-    @JoinColumn(name = "configuracoes_id")
+    @MapsId
+    @JoinColumn(name = "myuser_id")
     private User user;
 
-    public Configurations(ConfigurationDTO data) {
+    public Settings(SettingsDTO data) {
         this.dark_mode = data.dark_mode();
         this.notification_email = data.notification_email();
         this.notification_browser = data.notification_browser();

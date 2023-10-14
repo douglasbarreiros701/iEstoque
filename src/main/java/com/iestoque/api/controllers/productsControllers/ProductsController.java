@@ -58,13 +58,13 @@ public class ProductsController {
 
         List<ProductsJPA> userProducts = productsInterface.findProductByUser(user);
 
-        List<ProductGetDTO> productDTOs = userProducts.stream().map(
+        List<ProductGetDTO> productGetResponse = userProducts.stream().map(
                 product -> new ProductGetDTO(
                         product.getProductname(), product.getBrand(), product.getLocation(),
                         product.getBatch(), product.getDue_date(), product.getFactory_date(), product.getProduct_type())
         ).toList();
 
-        return productDTOs;
+        return productGetResponse;
 
     }
 }

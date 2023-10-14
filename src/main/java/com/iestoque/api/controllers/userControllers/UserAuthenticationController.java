@@ -1,6 +1,7 @@
 package com.iestoque.api.controllers.userControllers;
 
-import com.iestoque.api.domain.configurations.Configurations;
+import com.iestoque.api.domain.settings.SettingsRepository;
+import com.iestoque.api.domain.settings.Settings;
 import com.iestoque.api.domain.user.UserAuthentication.AutenticationData;
 import com.iestoque.api.domain.user.User;
 import com.iestoque.api.domain.user.UserRegisterDTO;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.ObjectInputFilter;
-
 @RestController
 @RequestMapping("/auth")
 public class UserAuthenticationController {
@@ -32,6 +31,9 @@ public class UserAuthenticationController {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private SettingsRepository settingsRepository;
 
 
     @PostMapping("/login")
@@ -47,27 +49,27 @@ public class UserAuthenticationController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserRegisterDTO data){
 
-        Configurations configurations = startConfigurations();
-
-
         if(this.repository.findByLogin(data.login()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.login(), encryptedPassword, data.email(), configurations);
 
+        User newUser = new User(data.login(), encryptedPassword, data.email());
+
+        Settings settings = startConfigurations(newUser);
         this.repository.save(newUser);
 
         return ResponseEntity.ok().build();
     }
 
 
-    private Configurations startConfigurations(){
-        Configurations configurations = new Configurations();
-        configurations.setDark_mode(false);
-        configurations.setNotification_email(true);
-        configurations.setNotification_browser(true);
-        configurations.setNotification_news(true);
+    private Settings startConfigurations(User user){
+        Settings settings = new Settings();
+        settings.setDark_mode(false);
+        settings.setNotification_email(true);
+        settings.setNotification_browser(true);
+        settings.setNotification_news(true);
 
-        return configurations;
+        settings.setUser(user);
+        return settingsRepository.save(settings);
     }
 }

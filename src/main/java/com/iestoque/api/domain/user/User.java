@@ -2,11 +2,10 @@ package com.iestoque.api.domain.user;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.iestoque.api.domain.configurations.Configurations;
+import com.iestoque.api.domain.settings.Settings;
 import com.iestoque.api.domain.product.ProductsJPA;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,13 +35,13 @@ public class User implements UserDetails {
     private List<ProductsJPA> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
-    private Configurations configurations;
+    @JsonIgnore
+    private Settings userSettings;
 
-    public User(String login, String password, String email, Configurations configurations) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
-        this.configurations = new Configurations();
     }
 
     public User(UserRegisterDTO data) {

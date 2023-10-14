@@ -1,4 +1,4 @@
-package com.iestoque.api.domain.configurations;
+package com.iestoque.api.domain.settings;
 
 import org.springframework.stereotype.Service;
 
