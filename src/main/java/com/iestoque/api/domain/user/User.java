@@ -30,6 +30,9 @@ public class User implements UserDetails {
     private String password;
     private String email;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<ProductsJPA> products = new ArrayList<>();
