@@ -4,6 +4,7 @@ package com.iestoque.api.controllers.userControllers;
 import com.iestoque.api.domain.user.*;
 import com.iestoque.api.domain.user.userServices.DeleteUserBy;
 import com.iestoque.api.domain.user.userServices.DisableUserService;
+import com.iestoque.api.domain.user.userServices.EnableUserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UserController {
 
     private final DisableUserService disableUserService;
+    private final EnableUserService enableUserService;
 
     @Autowired
     UserRepository repository;
@@ -40,16 +42,17 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("disable/{userLogin}")
-    public ResponseEntity<String> desabeUserByLogin(@PathVariable String userLogin) {
-        User user = repository.findByLogin(userLogin);
-
-        if (user != null) {
-            disableUserService.disableUser(userLogin);
-            return ResponseEntity.ok("User desabled");
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/disable")
+    public ResponseEntity<String> desabeUserByLogin(@RequestBody UserDisableEnableDTO userDisableEnableDTO) {
+        disableUserService.disableUser(userDisableEnableDTO.login());
+        return ResponseEntity.ok("User disabled sucessfully");
 
     }
+
+    @PostMapping("/enable")
+    public ResponseEntity<String> enableUserByLogin(@RequestBody UserDisableEnableDTO userDisableEnableDTO) {
+    enableUserService.enableUser(userDisableEnableDTO.login());
+    return ResponseEntity.ok("User enabled sucessfully");
+    }
+
 }

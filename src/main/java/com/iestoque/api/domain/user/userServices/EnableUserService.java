@@ -1,24 +1,22 @@
 package com.iestoque.api.domain.user.userServices;
 
+import com.iestoque.api.domain.user.UserDisableEnableDTO;
 import com.iestoque.api.domain.user.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class DisableUserService {
+public class EnableUserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    public DisableUserService(UserRepository userRepository){
+
+    public EnableUserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-
-    public void disableUser(String login){
-        userRepository.disableUser(login);
+    @Transactional
+    public void enableUser(String login){
+        userRepository.enableUser(login);
     }
-
-
 }

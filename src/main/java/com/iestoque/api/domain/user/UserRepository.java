@@ -14,6 +14,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("UPDATE user u SET u.isActive = false WHERE u.login = :userLogin")
     void disableUser(@Param("userLogin") String userLogin);
 
+    @Modifying
+    @Query("UPDATE user u SET u.isActive = true WHERE u.login = :userLogin") //java persistence query language (JPQL)
+    void enableUser(@Param("userLogin") String userLogin);
+
     User findByLogin(String login);
     User findByEmail(String email);
 

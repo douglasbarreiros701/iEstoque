@@ -41,6 +41,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private Settings userSettings;
 
+
     public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
@@ -51,6 +52,7 @@ public class User implements UserDetails {
         this.login = data.login();
         this.password = data.password();
         this.email = data.email();
+
 
     }
 
@@ -97,6 +99,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive();
     }
 }
