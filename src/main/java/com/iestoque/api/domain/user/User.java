@@ -49,10 +49,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public User(UserRegisterDTO data, UserRole userRole) {
+    public User(UserRegisterDTO data) {
         this.login = data.login();
         this.password = data.password();
         this.email = data.email();
+        this.role = UserRole.USER;
+        this.isActive = true;
 
 
     }
