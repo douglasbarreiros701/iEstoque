@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private String login;
     private String password;
     private String email;
+    private UserRole role;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -48,7 +49,7 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public User(UserRegisterDTO data) {
+    public User(UserRegisterDTO data, UserRole userRole) {
         this.login = data.login();
         this.password = data.password();
         this.email = data.email();
@@ -62,9 +63,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-
 
 
     @Override

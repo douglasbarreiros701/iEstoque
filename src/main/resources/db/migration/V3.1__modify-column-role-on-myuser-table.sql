@@ -1,0 +1,2 @@
+ALTER TABLE myuser
+CHANGE COLUMN role role_user VARCHAR(255);

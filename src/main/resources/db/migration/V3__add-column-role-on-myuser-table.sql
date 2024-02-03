@@ -1,0 +1,2 @@
+ALTER TABLE myuser
+ADD COLUMN role BOOLEAN DEFAULT true
