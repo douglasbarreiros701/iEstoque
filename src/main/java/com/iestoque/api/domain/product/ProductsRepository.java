@@ -8,4 +8,6 @@ import java.util.List;
 public interface ProductsRepository extends JpaRepository<ProductsJPA, Long> {
     List<ProductsJPA> findProductByUser(User user);
 
+    ProductsJPA findByProductnameAndUser(String productName, User user);
+
 }
